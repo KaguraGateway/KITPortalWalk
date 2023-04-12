@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  devise_for :admins, controllers: {
-    registrations: "admins/registrations",
+  devise_for :admins, skip: :registrations, controllers: {
     sessions: "admins/sessions",
     passwords: "admins/passwords",
     confirmations: "admins/confirmations"
   }
+
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions",
