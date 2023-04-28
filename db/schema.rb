@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_094345) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_142105) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -25,6 +25,126 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_094345) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "buildings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "class_days", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.date "date", null: false
+    t.integer "day", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_class_days_on_date", unique: true
+    t.index ["day"], name: "index_class_days_on_day"
+  end
+
+  create_table "class_schedules", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_time"], name: "index_class_schedules_on_end_time"
+    t.index ["name"], name: "index_class_schedules_on_name"
+    t.index ["start_time"], name: "index_class_schedules_on_start_time"
+  end
+
+  create_table "classrooms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "building_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["building_id"], name: "index_classrooms_on_building_id"
+    t.index ["name"], name: "index_classrooms_on_name"
+  end
+
+  create_table "events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.date "date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_events_on_date"
+    t.index ["title"], name: "index_events_on_title"
+  end
+
+  create_table "half_semesters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "semester_id", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.integer "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_date"], name: "index_half_semesters_on_end_date"
+    t.index ["semester_id"], name: "index_half_semesters_on_semester_id"
+    t.index ["start_date"], name: "index_half_semesters_on_start_date"
+    t.index ["type"], name: "index_half_semesters_on_type"
+  end
+
+  create_table "required_courses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_required_courses_on_title", unique: true
+  end
+
+  create_table "required_subject_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "required_course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["required_course_id"], name: "index_required_subject_categories_on_required_course_id"
+    t.index ["title"], name: "index_required_subject_categories_on_title", unique: true
+  end
+
+  create_table "required_subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "min_credit", null: false
+    t.bigint "required_subject_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["min_credit"], name: "index_required_subjects_on_min_credit"
+    t.index ["required_subject_category_id"], name: "index_required_subjects_on_required_subject_category_id"
+    t.index ["title"], name: "index_required_subjects_on_title", unique: true
+  end
+
+  create_table "semesters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "year", null: false
+    t.integer "gakki", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_date"], name: "index_semesters_on_end_date"
+    t.index ["gakki"], name: "index_semesters_on_gakki"
+    t.index ["start_date"], name: "index_semesters_on_start_date"
+    t.index ["year"], name: "index_semesters_on_year"
+  end
+
+  create_table "user_subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "subject_name", null: false
+    t.integer "grade"
+    t.integer "credits", null: false
+    t.bigint "classroom_id"
+    t.integer "day", null: false
+    t.bigint "schedule_id", null: false
+    t.bigint "semester_id", null: false
+    t.bigint "half_semester_id"
+    t.bigint "required_subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["classroom_id"], name: "index_user_subjects_on_classroom_id"
+    t.index ["day"], name: "index_user_subjects_on_day"
+    t.index ["grade"], name: "index_user_subjects_on_grade"
+    t.index ["half_semester_id"], name: "index_user_subjects_on_half_semester_id"
+    t.index ["required_subject_id"], name: "index_user_subjects_on_required_subject_id"
+    t.index ["schedule_id"], name: "index_user_subjects_on_schedule_id"
+    t.index ["semester_id"], name: "index_user_subjects_on_semester_id"
+    t.index ["subject_name"], name: "index_user_subjects_on_subject_name"
+    t.index ["user_id"], name: "index_user_subjects_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -47,4 +167,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_094345) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "half_semesters", "semesters"
+  add_foreign_key "required_subject_categories", "required_courses"
 end

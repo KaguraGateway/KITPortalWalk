@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  semester_id: 1
+  start_date: 2023-04-28
+  end_date: 2023-04-28
+  type: 1
+
+two:
+  semester_id: 1
+  start_date: 2023-04-28
+  end_date: 2023-04-28
+  type: 1
