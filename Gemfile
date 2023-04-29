@@ -64,6 +64,7 @@ group :development do
   # gem "spring"
 
   gem "solargraph"
+  gem 'htmlbeautifier'
 end
 
 group :test do
@@ -74,5 +75,4 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.0"
-
 gem 'devise'
