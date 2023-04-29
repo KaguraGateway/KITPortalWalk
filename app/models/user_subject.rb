@@ -8,6 +8,10 @@ class UserSubject < ApplicationRecord
 
     validates :subject_name, presence: true
     validates :credits, numericality: { in: 0..4 }
+    validates :user, presence: true
+    validates :schedule, presence: true
+    validates :semester, presence: true
+    validates :required_subject, presence: true
 
     enum :grade, [ :S, :A, :B, :C, :D, :F ]
     enum :day, [ :Mon, :Tue, :Wed, :Thu, :Fri, :Sat, :Sun ]
