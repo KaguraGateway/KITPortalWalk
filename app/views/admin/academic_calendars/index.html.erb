@@ -8,8 +8,19 @@
   </div>
   <div class="mt-6 border-t border-gray-100">
     <div class="mt-4">
-      <%= month_calendar do |date| %>
-        <%= date %>
+      <%= turbo_frame_tag 'calendar' do %>
+        <%= month_calendar events: @schedules do |date, events| %>
+          <%= date %>
+          <% events.each do |event| %>
+            <div>
+              <% if event.respond_to?(:day) %>
+                <%= event.day %>
+              <% else %>
+                <%= event.title %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -4,4 +4,8 @@ class ClassDay < ApplicationRecord
     enum :day, [ :Mon, :Tue, :Wed, :Thu, :Fri, :Sat, :Sun ]
 
     validates :date, presence: true
+
+    def start_time
+        self.date.to_time
+    end
 end
