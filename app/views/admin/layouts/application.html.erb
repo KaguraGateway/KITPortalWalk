@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/079cbed0ac.js" crossorigin="anonymous"></script>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="bg-sky-950 text-gray-100">
+  <body class="bg-gray-800 text-gray-100">
     <% if alert %>
       <div class="bg-red-500 text-white p-4">
         <%= alert %>
@@ -24,7 +24,7 @@
     <%= render("admin/layouts/header") %>
     <div class="flex h-full py-8">
       <%= render("admin/layouts/drawer") %>
-      <main class="flex-1 ml-8">
+      <main class="flex-1 mx-8">
         <%= yield %>
       </main>
     </div>
