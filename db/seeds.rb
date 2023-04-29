@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 if Rails.env.development?
+    # 本番環境ではrailc cでAdmin.createで作成してください
     Admin.where(email: "admin@example.com").first_or_create do |admin|
         admin.password = "password"
     end
