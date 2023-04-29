@@ -4,10 +4,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  devise_for :admins, skip: :registrations, controllers: {
-    sessions: "admins/sessions",
-    passwords: "admins/passwords",
-    confirmations: "admins/confirmations"
+  namespace :admin do
+    resources :dashboard, only: [:index]
+    resources :academic_calendars
+    resources :semesters
+    resources :graduation_requirements
+    resources :class_schedules
+  end
+
+  devise_for :admin, skip: :registrations, controllers: {
+    sessions: "admin/devise/sessions",
+    passwords: "admin/devise/passwords"
   }
 
   devise_for :users, controllers: {
