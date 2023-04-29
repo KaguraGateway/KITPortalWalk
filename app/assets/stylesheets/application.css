@@ -14,3 +14,10 @@
  *= require_tree .
  *= require_self
  */
+.simple-calendar .prev-month {
+    background: #3a3a3a;
+}
+
+.simple-calendar .today {
+    background: #535328;
+}
