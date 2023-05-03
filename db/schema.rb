@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_03_153325) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_03_153833) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -73,10 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_153325) do
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "required_admissin_year_id", null: false
-    t.bigint "required_admission_year_id", null: false
-    t.index ["required_admissin_year_id"], name: "index_course_categories_on_required_admissin_year_id"
-    t.index ["required_admission_year_id"], name: "index_course_categories_on_required_admission_year_id"
+    t.bigint "admission_year_id", null: false
+    t.index ["admission_year_id"], name: "index_course_categories_on_admission_year_id"
     t.index ["title"], name: "index_course_categories_on_title", unique: true
   end
 
@@ -117,21 +115,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_153325) do
 
   create_table "subject_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
-    t.bigint "required_course_id", null: false
+    t.bigint "course_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["required_course_id"], name: "index_subject_categories_on_required_course_id"
+    t.index ["course_category_id"], name: "index_subject_categories_on_course_category_id"
     t.index ["title"], name: "index_subject_categories_on_title", unique: true
   end
 
   create_table "subject_groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.integer "min_credit", null: false
-    t.bigint "required_subject_category_id", null: false
+    t.bigint "subject_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["min_credit"], name: "index_subject_groups_on_min_credit"
-    t.index ["required_subject_category_id"], name: "index_subject_groups_on_required_subject_category_id"
+    t.index ["subject_category_id"], name: "index_subject_groups_on_subject_category_id"
     t.index ["title"], name: "index_subject_groups_on_title", unique: true
   end
 
@@ -145,16 +143,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_153325) do
     t.bigint "schedule_id", null: false
     t.bigint "semester_id", null: false
     t.bigint "half_semester_id"
-    t.bigint "required_subject_id", null: false
+    t.bigint "subject_group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["classroom_id"], name: "index_user_subjects_on_classroom_id"
     t.index ["day"], name: "index_user_subjects_on_day"
     t.index ["grade"], name: "index_user_subjects_on_grade"
     t.index ["half_semester_id"], name: "index_user_subjects_on_half_semester_id"
-    t.index ["required_subject_id"], name: "index_user_subjects_on_required_subject_id"
     t.index ["schedule_id"], name: "index_user_subjects_on_schedule_id"
     t.index ["semester_id"], name: "index_user_subjects_on_semester_id"
+    t.index ["subject_group_id"], name: "index_user_subjects_on_subject_group_id"
     t.index ["subject_name"], name: "index_user_subjects_on_subject_name"
     t.index ["user_id"], name: "index_user_subjects_on_user_id"
   end
@@ -180,5 +178,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_153325) do
   end
 
   add_foreign_key "half_semesters", "semesters"
-  add_foreign_key "subject_categories", "course_categories", column: "required_course_id"
+  add_foreign_key "subject_categories", "course_categories"
 end
