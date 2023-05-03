@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_142105) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_03_145209) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -83,10 +83,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_142105) do
     t.index ["type"], name: "index_half_semesters_on_type"
   end
 
+  create_table "require_admission_years", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "year"
+    t.string "external_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["year"], name: "index_require_admission_years_on_year", unique: true
+  end
+
   create_table "required_courses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "required_admission_year_id", null: false
+    t.index ["required_admission_year_id"], name: "index_required_courses_on_required_admission_year_id"
     t.index ["title"], name: "index_required_courses_on_title", unique: true
   end
 
