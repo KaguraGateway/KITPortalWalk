@@ -77,6 +77,3 @@ end
 gem "tailwindcss-rails", "~> 2.0"
 gem 'devise'
 gem "simple_calendar", "~> 2.4"
-gem "shakapacker", "= 6.6"
-
-gem "react-rails", "= 2.6"
