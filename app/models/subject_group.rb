@@ -1,5 +1,5 @@
-class RequiredSubject < ApplicationRecord
-    belongs_to :required_subject_category
+class SubjectGroup < ApplicationRecord
+    belongs_to :subject_categories
     has_many :user_subjects, dependent: :destroy
 
     validates :title, presence: true

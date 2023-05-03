@@ -3,5 +3,10 @@ class Admin::GraduationRequirementsController < Admin::ApplicationController
   end
 
   def new
+    p params
+  end
+
+  def create
+    p params
   end
 end
