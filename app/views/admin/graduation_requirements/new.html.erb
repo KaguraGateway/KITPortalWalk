@@ -1,4 +1,15 @@
+<% provide(:title, "卒業要件") %>
 <div>
-  <h1 class="font-bold text-4xl">GraduationRequirements#new</h1>
-  <p>Find me in app/views/graduation_requirements/new.html.erb</p>
+  <div class="flex justify-between items-center">
+    <h2 class="text-xl font-semibold leading-7 text-white">卒業要件</h2>
+  </div>
+  <div class="mt-6 pt-6 border-t border-gray-100">
+    <%= form_with url: admin_graduation_requirements_path, method: :post do |f| %>
+      <%= react_component("GraduationRequirementForm",  { greeting: "Hello from react-rails." }) %>
+      <div class="mt-6">
+        <%= f.submit "送信", class: "inline-flex items-center px-4 py-2 text-sm font-semibold bg-blue-400 text-gray-900 rounded-md hover:bg-blue-300 hover:text-gray-100 focus:z-20 focus:outline-offset-0" %>
+        <%= link_to "戻る", admin_graduation_requirements_path, class: "inline-flex items-center px-4 py-2 text-sm font-semibold bg-gray-100 text-gray-900 rounded-md hover:bg-gray-300 hover:text-gray-100 focus:z-20 focus:outline-offset-0" %>
+      </div>
+    <% end %>
+  </div>
 </div>
