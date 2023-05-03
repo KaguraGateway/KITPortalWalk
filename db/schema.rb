@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_03_145209) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_03_153325) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -25,6 +25,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_145209) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "admission_years", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "year"
+    t.string "external_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["year"], name: "index_admission_years_on_year", unique: true
   end
 
   create_table "buildings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -61,6 +69,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_145209) do
     t.index ["name"], name: "index_classrooms_on_name"
   end
 
+  create_table "course_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "required_admissin_year_id", null: false
+    t.bigint "required_admission_year_id", null: false
+    t.index ["required_admissin_year_id"], name: "index_course_categories_on_required_admissin_year_id"
+    t.index ["required_admission_year_id"], name: "index_course_categories_on_required_admission_year_id"
+    t.index ["title"], name: "index_course_categories_on_title", unique: true
+  end
+
   create_table "events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.date "date", null: false
@@ -83,43 +102,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_145209) do
     t.index ["type"], name: "index_half_semesters_on_type"
   end
 
-  create_table "require_admission_years", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "year"
-    t.string "external_text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["year"], name: "index_require_admission_years_on_year", unique: true
-  end
-
-  create_table "required_courses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "required_admission_year_id", null: false
-    t.index ["required_admission_year_id"], name: "index_required_courses_on_required_admission_year_id"
-    t.index ["title"], name: "index_required_courses_on_title", unique: true
-  end
-
-  create_table "required_subject_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", null: false
-    t.bigint "required_course_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["required_course_id"], name: "index_required_subject_categories_on_required_course_id"
-    t.index ["title"], name: "index_required_subject_categories_on_title", unique: true
-  end
-
-  create_table "required_subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", null: false
-    t.integer "min_credit", null: false
-    t.bigint "required_subject_category_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["min_credit"], name: "index_required_subjects_on_min_credit"
-    t.index ["required_subject_category_id"], name: "index_required_subjects_on_required_subject_category_id"
-    t.index ["title"], name: "index_required_subjects_on_title", unique: true
-  end
-
   create_table "semesters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "year", null: false
     t.integer "gakki", null: false
@@ -131,6 +113,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_145209) do
     t.index ["gakki"], name: "index_semesters_on_gakki"
     t.index ["start_date"], name: "index_semesters_on_start_date"
     t.index ["year"], name: "index_semesters_on_year"
+  end
+
+  create_table "subject_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "required_course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["required_course_id"], name: "index_subject_categories_on_required_course_id"
+    t.index ["title"], name: "index_subject_categories_on_title", unique: true
+  end
+
+  create_table "subject_groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "min_credit", null: false
+    t.bigint "required_subject_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["min_credit"], name: "index_subject_groups_on_min_credit"
+    t.index ["required_subject_category_id"], name: "index_subject_groups_on_required_subject_category_id"
+    t.index ["title"], name: "index_subject_groups_on_title", unique: true
   end
 
   create_table "user_subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -178,5 +180,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_145209) do
   end
 
   add_foreign_key "half_semesters", "semesters"
-  add_foreign_key "required_subject_categories", "required_courses"
+  add_foreign_key "subject_categories", "course_categories", column: "required_course_id"
 end
