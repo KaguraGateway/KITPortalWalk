@@ -79,3 +79,4 @@ gem "simple_calendar", "~> 2.4"
 gem "jsbundling-rails", "~> 1.1"
 
 gem "cssbundling-rails", "~> 1.1"
+gem 'enum_help'
