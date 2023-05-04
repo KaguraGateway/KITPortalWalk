@@ -4,5 +4,5 @@ class HalfSemester < ApplicationRecord
     validates :start_date, presence: true
     validates :end_date, presence: true
 
-    enum :type, [ :spring, :summer, :fall, :winter ]
+    enum :season_type, [ :spring, :summer, :fall, :winter ]
 end
