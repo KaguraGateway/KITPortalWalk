@@ -3,10 +3,13 @@
         "build:js": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
         "watch:js": "esbuild app/javascript/*.* --watch --bundle --outdir=app/assets/builds --public-path=assets",
         "typecheck": "tsc --noEmit",
-        "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
-        "watch:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --watch"
+        "build:css": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css --minify",
+        "watch:css": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css --watch"
     },
     "dependencies": {
+        "@headlessui/react": "^1.7.14",
+        "@heroicons/react": "^2.0.17",
+        "@hotwired/turbo-rails": "^7.3.0",
         "autoprefixer": "^10.4.14",
         "esbuild": "^0.17.18",
         "postcss": "^8.4.23",
@@ -17,6 +20,7 @@
     "devDependencies": {
         "@types/react": "^18.2.1",
         "@types/react-dom": "^18.2.2",
+        "postcss-import": "^15.1.0",
         "typescript": "^5.0.4"
     }
 }
