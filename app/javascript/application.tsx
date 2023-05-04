@@ -1,11 +1,13 @@
 // Entry point for the build script in your package.json
+import "@hotwired/turbo-rails";
+
 import React, { isValidElement, cloneElement } from "react";
 import { createRoot } from "react-dom/client";
 import { GraduationRequirementForm } from "./react/components/admin/GraduationRequirementForm"
 const components: { [key: string]: React.FC<any> } = {
     "GraduationRequirementForm": GraduationRequirementForm
 };
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("turbo:load", () => {
     const reactRootElem = document.getElementById("react-root");
     if (!reactRootElem)
         return;
