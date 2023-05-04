@@ -6,5 +6,5 @@ class Semester < ApplicationRecord
     validates :start_date, presence: true
     validates :end_date, presence: true
 
-    enum :gakki, { first: 1, second: 2 }
+    enum :gakki, { first_gakki: 1, second_gakki: 2 }
 end
