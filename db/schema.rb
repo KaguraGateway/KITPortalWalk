@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_072458) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_04_100203) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -114,9 +114,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_072458) do
 
   create_table "subject_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
-    t.bigint "course_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "course_category_id", null: false
     t.index ["course_category_id"], name: "index_subject_categories_on_course_category_id"
     t.index ["title"], name: "index_subject_categories_on_title", unique: true
   end
@@ -177,5 +177,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_072458) do
   end
 
   add_foreign_key "half_semesters", "semesters"
-  add_foreign_key "subject_categories", "course_categories"
 end

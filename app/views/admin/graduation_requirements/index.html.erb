@@ -9,7 +9,40 @@
     </div>
   </div>
   <div class="mt-6 border-t border-gray-100">
-    <div class="mt-4">
-    </div>
+    <% @admission_years.each do |admission_year|  %>
+      <div class="border-b border-gray-600 mt-6 pb-6 last:border-b-0">
+        <h3 class="text-base font-semibold leading-7"><%= admission_year.year %></h3>
+        <div class="mt-4 bg-gray-900">
+          <div class="flex items-center bg-gray-700 text-gray-400 uppercase text-xs p-4">
+            <div class="w-64">課程区分</div>
+            <div class="w-64">科目区分</div>
+            <div class="w-64">科目群</div>
+            <div class="w-64">卒業に必要な最低単位数</div>
+          </div>
+          <div class="p-4 text-sm text-left text-gray-400">
+            <% admission_year.course_categories.each do |course_category| %>
+              <div class="flex items-center border-b last:border-0 pb-4 last:pb-0 mt-4 first:mt-0">
+                <div class="text-white font-medium w-64"><%= course_category.title %></div>
+                <div>
+                  <% course_category.subject_categories.each do |subject_category| %>
+                    <div class="flex items-center border-b last:border-0 border-gray-500 pb-4 last:pb-0 mt-4 first:mt-0">
+                      <div class="w-64"><%= subject_category.title %></div>
+                      <div>
+                        <% subject_category.subject_groups.each do |subject_group| %>
+                          <div class="flex items-center">
+                            <div class="w-64"><%= subject_group.title %></div>
+                            <div class="w-64"><%= subject_group.min_credit %></div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
