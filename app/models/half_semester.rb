@@ -1,4 +1,5 @@
 class HalfSemester < ApplicationRecord
+    belongs_to :semester
     has_many :user_subjects, dependent: :destroy
 
     validates :start_date, presence: true

@@ -1,11 +1,11 @@
 ja:
-  enum:
+  enums:
     semester:
       gakki:
         first_gakki: "前学期"
         second_gakki: "後学期"
     half_semester:
-      type:
+      season_type:
         spring: "春"
         summer: "夏"
         fall: "秋"
