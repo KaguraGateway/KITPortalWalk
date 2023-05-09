@@ -1,0 +1,44 @@
+<% provide(:title, "時間割") %>
+<div>
+  <div class="flex justify-between items-center">
+    <h3 class="text-xl font-semibold leading-7 text-white">時間割</h3>
+    <div>
+      <%= link_to(new_admin_class_schedule_path, class: "text-xl") do %>
+        <i class="fa-sharp fa-solid fa-plus"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-6 pt-6 border-t border-gray-100">
+    <div class="relative overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">名前</th>
+            <th scope="col" class="px-6 py-3">時間</th>
+            <th scope="col" class="px-6 py-3">編集 / 削除</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @class_schedules.each do |class_schedule| %>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <%= class_schedule.name %>
+              </th>
+              <td class="px-6 py-4">
+                <%= class_schedule.start_time.strftime("%H:%M") %> 〜 <%= class_schedule.end_time.strftime("%H:%M") %>
+              </td>
+              <td class="px-6 py-4">
+                <div>
+                  <%= link_to(admin_class_schedule_path(class_schedule), data: { turbo_method: :delete, turbo_confirm: "「#{class_schedule.name}」を削除しますか？" }, class: "text-xl") do %>
+                    <i class="fa-solid fa-trash"></i>
+                  <% end %>
+                </div>
+              </td>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
