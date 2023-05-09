@@ -191,3 +191,7 @@ ja:
         summer: "夏"
         fall: "秋"
         winter: "冬"
+    building:
+      place_type:
+        oogigaoka: "扇が丘"
+        yatsukaho: "八束穂"

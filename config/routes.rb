@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :semesters
     resources :graduation_requirements
     resources :class_schedules
+    resources :buildings
   end
 
   devise_for :admin, skip: :registrations, controllers: {
@@ -23,4 +24,9 @@ Rails.application.routes.draw do
     passwords: "users/devise/passwords",
     confirmations: "users/devise/confirmations"
   }
+
+  namespace :users do
+    resources :class_schedules, only: [:index]
+    resources :academic_calendars, only: [:index]
+  end
 end
