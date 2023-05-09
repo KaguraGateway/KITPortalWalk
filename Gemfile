@@ -74,6 +74,7 @@ group :test do
   gem "webdrivers"
 end
 
+gem 'dotenv-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem "simple_calendar", "~> 2.4"
