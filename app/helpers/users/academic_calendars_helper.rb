@@ -1,0 +1,2 @@
+module Users::AcademicCalendarsHelper
+end
