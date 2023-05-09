@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_09_074221) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_09_121606) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -59,12 +59,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_074221) do
   end
 
   create_table "classrooms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
+    t.integer "room_number", null: false
     t.bigint "building_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_classrooms_on_building_id"
-    t.index ["name"], name: "index_classrooms_on_name"
+    t.index ["room_number"], name: "index_classrooms_on_room_number"
   end
 
   create_table "course_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
