@@ -2,12 +2,7 @@
 <html>
   <head>
     <title>KITPortalWalk</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <script src="https://kit.fontawesome.com/079cbed0ac.js" crossorigin="anonymous"></script>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= render("layouts/head") %>
   </head>
   <body class="min-h-screen bg-sky-950 text-gray-100">
     <main class="container mx-auto mt-28 px-5 flex">
