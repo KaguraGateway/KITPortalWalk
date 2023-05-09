@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_150827) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_09_015304) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -139,17 +139,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_150827) do
     t.integer "credits", null: false
     t.bigint "classroom_id"
     t.integer "day", null: false
-    t.bigint "schedule_id", null: false
     t.bigint "semester_id", null: false
     t.bigint "half_semester_id"
     t.bigint "subject_group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "class_schedule_id", null: false
+    t.index ["class_schedule_id"], name: "index_user_subjects_on_class_schedule_id"
     t.index ["classroom_id"], name: "index_user_subjects_on_classroom_id"
     t.index ["day"], name: "index_user_subjects_on_day"
     t.index ["grade"], name: "index_user_subjects_on_grade"
     t.index ["half_semester_id"], name: "index_user_subjects_on_half_semester_id"
-    t.index ["schedule_id"], name: "index_user_subjects_on_schedule_id"
     t.index ["semester_id"], name: "index_user_subjects_on_semester_id"
     t.index ["subject_group_id"], name: "index_user_subjects_on_subject_group_id"
     t.index ["subject_name"], name: "index_user_subjects_on_subject_name"
