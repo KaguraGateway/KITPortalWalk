@@ -8,7 +8,6 @@ class Semester < ApplicationRecord
 
     enum :gakki, { first_gakki: 1, second_gakki: 2 }
 
-    def self.current
-        self.where("start_date <= ? AND end_date >= ?", Date.today, Date.today).first
-    end
+    scope :by_date, -> (date) { where("start_date <= ? AND end_date >= ?", date, date).first }
+    scope :current, -> { by_date(Date.today) }
 end

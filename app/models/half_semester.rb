@@ -7,7 +7,6 @@ class HalfSemester < ApplicationRecord
 
     enum :season_type, [ :spring, :summer, :fall, :winter ]
 
-    def self.current
-        self.where("start_date <= ? AND end_date >= ?", Date.today, Date.today).first
-    end
+    scope :by_date, -> (date) { where("start_date <= ? AND end_date >= ?", date, date).first }
+    scope :current, -> { by_date(Date.today) }
 end
