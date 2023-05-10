@@ -82,3 +82,5 @@ gem "jsbundling-rails", "~> 1.1"
 
 gem "cssbundling-rails", "~> 1.1"
 gem 'enum_help'
+
+gem "google-apis-calendar_v3"
