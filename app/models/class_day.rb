@@ -8,4 +8,8 @@ class ClassDay < ApplicationRecord
     def start_time
         self.date.to_time
     end
+
+    def self.today
+        self.find_by(date: Date.today)
+    end
 end

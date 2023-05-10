@@ -1,0 +1,38 @@
+<% provide(:title, "今日の授業") %>
+<div>
+  <div class="flex justify-between items-center">
+    <h3 class="text-xl font-semibold leading-7 text-white">今日の授業 (<%= @date.to_s %> <%= t("date.day_names")[@date.wday] %>) / 授業曜日: <%= @class_day.day_i18n %></h3>
+    <div>
+      <%= link_to "Today", users_today_schedules_path(date: nil), class: "inline-flex items-center h-[30px] px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-600 focus:z-20 focus:outline-offset-0" %>
+      <%= link_to(users_today_schedules_path(date: @date.yesterday), class: "inline-flex items-center h-[30px] px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-600 focus:z-20 focus:outline-offset-0") do %>
+        <i class="fa-solid fa-angle-left"></i>
+      <% end %>
+      <%= link_to(users_today_schedules_path(date: @date.tomorrow), class: "inline-flex items-center h-[30px] px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-600 focus:z-20 focus:outline-offset-0") do %>
+        <i class="fa-solid fa-angle-right"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-6 pt-6 border-t border-gray-100">
+    <div class="relative overflow-x-auto">
+      <% @schedules.each do |schedule| %>
+        <div class="mt-4 first:mt-0">
+          <div class="inline-flex items-center mb-1 px-2 py-1 text-xs bg-orange-700 rounded-md">
+            <div><%= schedule.name %> (<%= schedule.start_time.strftime("%H:%M") %> 〜 <%= schedule.end_time.strftime("%H:%M") %>)</div>
+          </div>
+          <div class="flex">
+            <div class="w-[240px] min-h-[64px] p-1 bg-gray-700 rounded-md">
+              <% unless @subjects[schedule.id].nil? %>
+                <% @subjects[schedule.id].each do |user_subject| %>
+                  <div class="w-full px-2 py-2 bg-gray-500 text-gray-200 rounded-md">
+                    <div class="font-semibold mb-1"><%= user_subject.subject_name %></div>
+                    <div class="inline-flex text-xs bg-lime-600 rounded-md p-1"><%= user_subject.classroom.building_id %>・<%= user_subject.classroom.room_number %></div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

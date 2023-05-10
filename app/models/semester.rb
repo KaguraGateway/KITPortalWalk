@@ -7,4 +7,8 @@ class Semester < ApplicationRecord
     validates :end_date, presence: true
 
     enum :gakki, { first_gakki: 1, second_gakki: 2 }
+
+    def self.current
+        self.where("start_date <= ? AND end_date >= ?", Date.today, Date.today).first
+    end
 end
