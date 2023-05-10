@@ -1,7 +1,7 @@
 <% provide(:title, "今日の授業") %>
 <div>
   <div class="flex justify-between items-center">
-    <h3 class="text-xl font-semibold leading-7 text-white">今日の授業 (<%= @date.to_s %> <%= t("date.day_names")[@date.wday] %>) / 授業曜日: <%= @class_day.day_i18n %></h3>
+    <h3 class="text-xl font-semibold leading-7 text-white">今日の授業 (<%= @date.to_s %> <%= t("date.day_names")[@date.wday] %>) / 授業曜日: <%= @class_day.day_i18n unless @class_day.nil? %></h3>
     <div>
       <%= link_to "Today", users_today_schedules_path(date: nil), class: "inline-flex items-center h-[30px] px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-600 focus:z-20 focus:outline-offset-0" %>
       <%= link_to(users_today_schedules_path(date: @date.yesterday), class: "inline-flex items-center h-[30px] px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-600 focus:z-20 focus:outline-offset-0") do %>
