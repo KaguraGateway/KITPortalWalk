@@ -27,6 +27,6 @@ class Admin::ClassSchedulesController < Admin::ApplicationController
 
   private
   def user_params
-    params.require(:class_schedule).permit(:name, :start_time, :end_time)
+    params.require(:class_schedule).permit(:name, :start_time, :end_time, :is_class_time)
   end
 end
