@@ -1,0 +1,2 @@
+module Users::UserSubjectsHelper
+end

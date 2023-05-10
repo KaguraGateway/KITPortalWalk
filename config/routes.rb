@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   }
 
   namespace :users do
+    resources :subjects
     resources :class_schedules, only: [:index]
     resources :academic_calendars, only: [:index]
   end

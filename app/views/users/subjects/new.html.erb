@@ -1,0 +1,76 @@
+<% provide(:title, "履修科目") %>
+<div>
+  <div class="flex justify-between items-center">
+    <h2 class="text-xl font-semibold leading-7 text-white">履修科目</h2>
+  </div>
+  <div class="mt-6 pt-6 border-t border-gray-100">
+    <%= form_with model: @subject, url: users_subjects_path do |f| %>
+      <div class="w-1/4">
+        <%= f.label :subject_name, class: "block text-sm font-medium leading-6" %>
+        <div class="mt-2">
+          <%= f.text_field :subject_name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+        </div>
+      </div>
+      <div class="mt-6 w-1/4">
+        <%= f.label :credits, class: "block text-sm font-medium leading-6" %>
+        <div class="mt-2">
+          <%= f.text_field :credits, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 w-1/2 mt-6">
+        <div class="col-span-1 mr-6 pr-6">
+          <%= f.label :day, class: "block text-sm font-medium leading-6" %>
+          <div>
+            <%= f.select :day, UserSubject.days.keys.map { |k| [t("enums.user_subject.day.#{k}"), k] }, {}, {class: "border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"} %>
+          </div>
+        </div>
+        <div class="col-span-1">
+          <%= f.label :class_schedule_id, class: "block text-sm font-medium leading-6" %>
+          <div>
+            <%= f.select :class_schedule_id, @schedules.map { |v| [v.name, v.id] }, {}, {class: "border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"} %>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 w-1/2">
+        <%= f.label :subject_group_id, class: "block text-sm font-medium leading-6" %>
+        <div>
+          <%= f.select :subject_group_id, @subject_groups.map { |v| ["#{v.subject_category.course_category.title} / #{v.subject_category.title} / #{v.title}", v.id] }, {}, {class: "border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"} %>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 w-1/2 mt-6">
+        <div class="col-span-1 mr-6 pr-6">
+          <%= f.label :semester_id, class: "block text-sm font-medium leading-6" %>
+          <div>
+            <%= f.select :semester_id, @semesters.map { |v| ["#{v.year} #{v.gakki_i18n}", v.id] }, {}, {class: "border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"} %>
+          </div>
+        </div>
+        <div class="col-span-1">
+          <%= f.label :half_semester_id, class: "block text-sm font-medium leading-6" %>
+          <div>
+            <%= f.select :half_semester_id, @half_semesters.map { |v| [v.season_type_i18n, v.id] }, {include_blank: true}, {class: "border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"} %>
+          </div>
+        </div>
+      </div>
+      <%= fields_for :classroom do |classroom_field| %>
+        <div class="grid grid-cols-2 w-1/2 mt-6">
+          <div class="col-span-1 mr-6 pr-6">
+            <%= classroom_field.label :building_id, class: "block text-sm font-medium leading-6" %>
+            <div>
+              <%= classroom_field.select :building_id, @buildings.map { |v| ["#{v.id}号館", v.id] }, {include_blank: true}, {class: "border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"} %>
+            </div>
+          </div>
+          <div class="col-span-1">
+            <%= classroom_field.label :room_number, class: "block text-sm font-medium leading-6" %>
+            <div>
+              <%= classroom_field.text_field :room_number, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="mt-6">
+        <%= f.submit "送信", class: "inline-flex items-center px-4 py-2 text-sm font-semibold bg-blue-400 text-gray-900 rounded-md hover:bg-blue-300 hover:text-gray-100 focus:z-20 focus:outline-offset-0" %>
+        <%= link_to "戻る", users_subjects_path, class: "inline-flex items-center px-4 py-2 text-sm font-semibold bg-gray-100 text-gray-900 rounded-md hover:bg-gray-300 hover:text-gray-100 focus:z-20 focus:outline-offset-0" %>
+      </div>
+    <% end %>
+  </div>
+</div>

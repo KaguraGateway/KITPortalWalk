@@ -195,3 +195,12 @@ ja:
       place_type:
         oogigaoka: "扇が丘"
         yatsukaho: "八束穂"
+    user_subject:
+      day:
+        Mon: "月"
+        Tue: "火"
+        Wed: "水"
+        Thu: "木"
+        Fri: "金"
+        Sat: "土"
+        Sun: "日"
