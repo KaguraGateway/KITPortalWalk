@@ -1,0 +1,2 @@
+module Users::ClassSyllabusesHelper
+end

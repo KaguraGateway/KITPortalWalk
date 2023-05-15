@@ -3,8 +3,8 @@ class Users::TodaySchedulesController < Users::ApplicationController
 
     def index
         # 今学期を取得する
-        current_semester = Semester.current
-        current_half_semester = HalfSemester.current
+        current_semester = Semester.by_date(@date)
+        current_half_semester = HalfSemester.by_date(@date)
         # 今日の授業曜日を取得
         @class_day = ClassDay.find_by(date: @date)
         # 時間割を取得

@@ -2,6 +2,11 @@
 <div>
   <div class="flex justify-between items-center">
     <h2 class="text-xl font-semibold leading-7 text-white">学年暦</h2>
+    <div>
+      <%= link_to(users_academic_calendars_path(format: :csv), class: "text-xl") do %>
+        <i class="fa-solid fa-file-arrow-down"></i>
+      <% end %>
+    </div>
   </div>
   <div class="mt-6 border-t border-gray-100">
     <div class="mt-4">

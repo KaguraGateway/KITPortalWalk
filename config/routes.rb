@@ -30,5 +30,6 @@ Rails.application.routes.draw do
     resources :today_schedules, only: [:index]
     resources :class_schedules, only: [:index]
     resources :academic_calendars, only: [:index]
+    resources :class_syllabuses
   end
 end
